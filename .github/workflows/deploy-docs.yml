@@ -28,9 +28,10 @@ jobs:
 
       - name: Bundle OpenAPI with Redocly
         run: |
-          npx @redocly/cli build-docs openapi/soko-rest-openapi.json \
+          npx @redocly/cli build-docs \
+            openapi/soko-rest-openapi.json \
             --title "Soko3 REST API" \
-            --options.nativeScrollbars \
+            --theme.openapi.nativeScrollbars true \
             -o api-docs.html
 
       - name: Prepare for Pages
