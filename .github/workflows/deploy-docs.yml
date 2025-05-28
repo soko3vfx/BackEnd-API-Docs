@@ -6,6 +6,11 @@ on:
       - 'openapi/**/*.json'
       - '.github/workflows/deploy-docs.yml'
 
+permissions:
+  contents: write     # allow pushing commits
+  pages:   write     # allow updating Pages
+  id-token: write    # needed by peaceiris/actions-gh-pages@v4
+
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
