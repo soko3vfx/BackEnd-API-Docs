@@ -7,13 +7,14 @@ on:
       - '.github/workflows/deploy-docs.yml'
 
 permissions:
-  contents: write     # allow pushing commits
-  pages:   write     # allow updating Pages
-  id-token: write    # needed by peaceiris/actions-gh-pages@v4
+  contents: write
+  pages:   write
+  id-token: write
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -22,16 +23,20 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install ReDoc CLI
-        run: npm install -g redoc-cli
+      - name: Install Redocly CLI
+        run: npm install -g @redocly/cli
 
-      - name: Bundle OpenAPI with ReDoc
+      - name: Bundle OpenAPI with Redocly
         run: |
-          redoc-cli bundle \
-            openapi/soko-rest-openapi.json \
+          npx @redocly/cli build-docs openapi/soko-rest-openapi.json \
             --title "Soko3 REST API" \
             --options.nativeScrollbars \
             -o api-docs.html
+
+      - name: Prepare for Pages
+        run: |
+          mv api-docs.html index.html
+          touch .nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
