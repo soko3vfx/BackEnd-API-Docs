@@ -2,7 +2,6 @@ name: Build & Deploy API Docs
 
 on:
   push:
-    # trigger on changes to your OpenAPI JSON (or this workflow)
     paths:
       - 'openapi/**/*.json'
       - '.github/workflows/deploy-docs.yml'
@@ -10,18 +9,16 @@ on:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'      # any LTS version
+          node-version: '18'
 
       - name: Install ReDoc CLI
-        run: npm install -g @redocly/cli
+        run: npm install -g redoc-cli
 
       - name: Bundle OpenAPI with ReDoc
         run: |
@@ -37,7 +34,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: ./
-          # if you only want to deploy api-docs.html, you could set:
-          # publish_dir: .
-          # include: |
-          #   api-docs.html
