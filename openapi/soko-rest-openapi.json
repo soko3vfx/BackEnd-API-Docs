@@ -3,9 +3,9 @@
     "info": {
         "description": "",
         "title": "standard public schema",
-        "version": "12.2.0 (ec89f6b)"
+        "version": "1.0.8"
     },
-    "host": "cedezczgyuupewevkswf.supabase.co:443",
+    "host": "https://<instance-id>.supabase.co",
     "basePath": "/",
     "schemes": [
         "https"
